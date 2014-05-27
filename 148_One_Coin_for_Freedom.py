@@ -43,6 +43,8 @@ def decrypt(alist):
 def xor(alist):
     if isinstance(alist, list) == False:
         raise TypeError, "alist %s: list exprected" %alist
+    if len(alist) == 0:
+        return 0
     return reduce(lambda x,y: x^y, alist)
 
 def main1():
