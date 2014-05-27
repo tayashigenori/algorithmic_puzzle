@@ -9,7 +9,7 @@ COIN_TAIL = 0 # 裏
 class ChessBoard:
     def __init__(self, length = 64):
         self._coins = {}
-        for i in range(1, length + 1):
+        for i in range(length):
             self._coins[i] = COIN_TOP
         return
     # ランダムにコインを裏返す
@@ -61,14 +61,12 @@ def main1():
     T = cb.get_tail_coins()
     J = answer_num
     coin_to_flip = encrypt( T + [J] ) # 本で言うところの X
-    coin_to_flip = coin_to_flip % cb_length # これは本当に必要？
     # debug
     sys.stderr.write("### coin_to_flip: %d\n" %coin_to_flip)
     cb.flip(coin_to_flip)
 
     # 囚人B はチェスの盤面だけを見て看守の選んだコインを当てる
     answer_num_guessed = decrypt( cb.get_tail_coins() )
-    answer_num_guessed = answer_num_guessed % cb_length # これは本当に必要？
     # debug
     sys.stderr.write("### answer_num_guessed: %d\n" %answer_num_guessed)
 
