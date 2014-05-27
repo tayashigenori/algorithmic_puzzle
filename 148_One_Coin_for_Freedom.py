@@ -29,7 +29,7 @@ class ChessBoard:
     def flip(self, coin_to_flip):
         if isinstance(coin_to_flip, int) == False:
             raise TypeError, 'int expected'
-        if coin_to_flip > self.get_length():
+        if coin_to_flip >= self.get_length():
             raise ValueError, 'coin does not exist'
         self._coins[coin_to_flip] = not self._coins[coin_to_flip]
         return
@@ -46,7 +46,7 @@ def xor(alist):
     return reduce(lambda x,y: x^y, alist)
 
 def main1():
-    cb = ChessBoard(length = 64)
+    cb = ChessBoard(length = 3)
     cb.initialize()
     cb_length = cb.get_length()
     # debug
