@@ -15,7 +15,7 @@ class ChessBoard:
     # ランダムにコインを裏返す
     def initialize(self,):
         randomly_selected_coins = random.sample(self._coins.keys(),
-                                                random.randint(1, self.get_length()))
+                                                random.randint(0, self.get_length() -1))
         for rsc in randomly_selected_coins:
             self._coins[rsc] = COIN_TAIL
         return
@@ -46,7 +46,7 @@ def xor(alist):
     return reduce(lambda x,y: x^y, alist)
 
 def main1():
-    cb = ChessBoard(64)
+    cb = ChessBoard(length = 64)
     cb.initialize()
     cb_length = cb.get_length()
     # debug
