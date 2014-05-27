@@ -48,24 +48,27 @@ def xor(alist):
 def main1():
     cb = ChessBoard(64)
     cb.initialize()
+    cb_length = cb.get_length()
     # debug
     sys.stderr.write("### tail coins: %s\n" %cb.get_tail_coins())
 
     # 看守がコインを一枚選択する
-    answer_num = random.randint(1, cb.get_length())
+    answer_num = random.randint(1, cb_length) # 本で言うところの J
     # debug
     sys.stderr.write("### answer_num: %d\n" %answer_num)
 
     # 囚人A は answer_num を知った上で裏返すべきコインを計算する
-    coin_to_flip = encrypt( cb.get_tail_coins() + [answer_num] )
-    coin_to_flip = coin_to_flip % cb.get_length() # 必要？
+    T = cb.get_tail_coins()
+    J = answer_num
+    coin_to_flip = encrypt( T + [J] ) # 本で言うところの X
+    coin_to_flip = coin_to_flip % cb_length # これは本当に必要？
     # debug
     sys.stderr.write("### coin_to_flip: %d\n" %coin_to_flip)
     cb.flip(coin_to_flip)
 
     # 囚人B はチェスの盤面だけを見て看守の選んだコインを当てる
     answer_num_guessed = decrypt( cb.get_tail_coins() )
-    answer_num_guessed = answer_num_guessed % cb.get_length() # 必要？
+    answer_num_guessed = answer_num_guessed % cb_length # これは本当に必要？
     # debug
     sys.stderr.write("### answer_num_guessed: %d\n" %answer_num_guessed)
 
