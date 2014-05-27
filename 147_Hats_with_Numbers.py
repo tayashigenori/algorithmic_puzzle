@@ -11,17 +11,21 @@ class Hat:
         return self._num
 
 class Hats:
-    def __init__(self, length): # nは人数
-        self._hats = {}
+    def __init__(self, length): # length: 人数
         self._length = length
+        # initialize hats
+        self._hats = {}
+        for i in range(self._length):
+            self._hats[i] = Hat(num = False)
         return
 
     def set_hats(self, nums = []):
+        # nums を帽子にセット
         if len(nums) == self._length:
             for i in range(self._length):
                 self._hats[i] = Hat(nums[i])
             return
-        # ランダムに生成
+        # numbs がなければランダムに生成
         for i in range(self._length):
             this_n = random.randint(0, self._length - 1)
             self._hats[i] = Hat(this_n)
@@ -41,13 +45,17 @@ def judge(guesses, answers):
     if len(guesses) != len(answers):
         raise ValueError, 'len(guesses) has to be equal to len(answers)' %(len(guesses),
                                                                            len(answers))
-    sys.stderr.write("""### answers: %s
-### guesses: %s\n""" %(answers, guesses))
+    # debug
+    sys.stderr.write("### answers: %s### guesses: %s\n"
+                     %(answers, guesses))
+    # loop
     for i in range(len(guesses)):
         if guesses[i] == answers[i]:
+            # succeeded
             sys.stderr.write("### Found.\n### %dth elements are %s\n"
                              %(i, guesses[i]))
             return True
+    # failed
     sys.stderr.write("### Not found.\n")
     return False
 
