@@ -53,7 +53,7 @@ def main1():
     sys.stderr.write("### tail coins: %s\n" %cb.get_tail_coins())
 
     # 看守がコインを一枚選択する
-    answer_num = random.randint(1, cb_length) # 本で言うところの J
+    answer_num = random.randint(0, cb_length - 1) # 本で言うところの J
     # debug
     sys.stderr.write("### answer_num: %d\n" %answer_num)
 
