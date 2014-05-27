@@ -48,7 +48,7 @@ def xor(alist):
     return reduce(lambda x,y: x^y, alist)
 
 def main1():
-    cb = ChessBoard(length = 3)
+    cb = ChessBoard(length = 64)
     cb.initialize()
     cb_length = cb.get_length()
     # debug
