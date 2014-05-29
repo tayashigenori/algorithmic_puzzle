@@ -1,58 +1,35 @@
-;;;;;;;;;;;;;;;;;;;;
-; helper functions ;
-;;;;;;;;;;;;;;;;;;;;
-; sum
-(define (sum numlist)
-  (if
-    (null? numlist)
-    0
-    (+ (car numlist) (sum (cdr numlist)))
-  )
-)
 
-; random
-(define (rand seed upper)
-  (let ((x seed))
-    (lambda ()
-      (set! x (remainder (+ (* 13 x) 5) upper))
-      x)))
+(load "random.scm")
+(load "list.scm")
 
-(define create_random_list
-  (lambda (length)
-    (cond
-      ((eqv? length 0) `())
-      (else
-       (cons (r) (create_random_list (- length 1)))))))
-
-; list manipulation
-(define (retrieve ls n)
-    (if (zero? n)
-        (car ls)
-        (retrieve (cdr ls) (- n 1))))
-
-;;;;;;;;;;;;;;;;;;
-; main functions ;
-;;;;;;;;;;;;;;;;;;
-; function to guess
 (define guess
-  (lambda (nums i) ; nums: all numbers
+  (lambda (nums i) ; nums: all numbers including me
     (modulo (- i
                (- (sum nums) (retrieve nums i)))
             ninzuu)))
-
-; main
-(define ninzuu 5)
-(define r (rand 1 ninzuu)) ; TODO change seed randomly
-(define hats (create_random_list ninzuu))
-hats
 
 (define guess_all
   (lambda (hats length)
     (cond
       ((eqv? length 0) `())
       (else
-       (cons (guess hats (- ninzuu length))
+       (cons (guess hats ; all hat numbers
+                    (- ninzuu length)) ; this is (- ninzuu length)th member
              (guess_all hats (- length 1)))))))
 
+; print
+(define display_output
+  (lambda (header list)
+    (display header)
+    (display list)
+    (display "\n")))
+
+; main
+(define ninzuu 10)
+(define r (rand 1 ninzuu)) ; TODO change seed randomly
+
+(define hats (create_random_list ninzuu))
+(display_output "hats:\t\t" hats)
+
 (define guesses (guess_all hats ninzuu))
-guesses
+(display_output "guesses:\t" guesses)
