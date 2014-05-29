@@ -4,8 +4,10 @@
 
 (define guess
   (lambda (nums i) ; nums: all numbers including me
+    ; return x such that (x + sum(nums) except me) % ninzuu = 1
     (modulo (- i
-               (- (sum nums) (retrieve nums i)))
+               (- (sum nums)
+                  (retrieve nums i)))
             ninzuu)))
 
 (define guess_all
