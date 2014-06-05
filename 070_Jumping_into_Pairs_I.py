@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-######################
-## does not work yet
-######################
-
 import sys
 
 COIN_NULL = 0
@@ -19,18 +15,24 @@ class Coins:
         return
 
     def move(self, ith, direction = TO_THE_RIGHT):
+        sys.stderr.write("### moving %d th coin to the %d direction.\n" %(ith, direction))
+        sys.stderr.write("### coins: %s.\n" %(self.get_coins()))
         try:
             self.remove_coin(ith)
             jumped_position = self.jump_n_coins(ith, direction, n = 2)
-            self.add_coin(ith)
+            self.add_coin(jumped_position)
         except KeyError:
             sys.stderr.write("you can't move %d coin to this direction %d\n" %(ith, direction))
         return
 
     def remove_coin(self, ith):
-        self._coins[ith] += 1
+        if self._coins[ith] == COIN_NULL:
+            raise ValueError, "cannot remove. no coin found in %d th position" %(ith)
+        self._coins[ith] -= 1
         return
     def add_coin(self, ith):
+        if self._coins[ith] == COIN_DOUBLE:
+            raise ValueError, "cannot add. two coins found in %d th position" %(ith)
         self._coins[ith] += 1
         return
 
@@ -44,7 +46,8 @@ class Coins:
                 break
             if coins_found >= n + 1:
                 raise ValueError, "%d + 1 coins found in this direction %d" %(n, direction)
-        return answer
+        # ２枚見つかったのでさらにその隣（右／左）へ移動
+        return answer + direction
 
     def get_coins(self,):
         return self._coins
