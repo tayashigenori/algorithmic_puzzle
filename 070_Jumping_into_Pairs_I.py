@@ -4,7 +4,7 @@ import sys
 
 COIN_NULL = 0
 COIN_SINGLE = 1
-COIN_DOUBLE = 2
+COIN_MAX = 2
 
 TO_THE_LEFT = -1
 TO_THE_RIGHT = 1
@@ -31,7 +31,7 @@ class Coins:
         self._coins[ith] -= 1
         return
     def add_coin(self, ith):
-        if self._coins[ith] == COIN_DOUBLE:
+        if self._coins[ith] >= COIN_MAX:
             raise ValueError, "cannot add. two coins found in %d th position" %(ith)
         self._coins[ith] += 1
         return
@@ -52,6 +52,15 @@ class Coins:
     def get_coins(self,):
         return self._coins
 
+    def is_final_state(self, coins = []):
+        if isinstance(coins, list) == False or len(coins) == 0:
+            coins = self.get_coins()
+        result = True
+        for c,num in coins.items():
+            if num != COIN_MAX and num != COIN_NULL:
+                result = False
+        return result
+
 
 def main():
     cs = Coins(n = 8)
@@ -60,6 +69,7 @@ def main():
     cs.move(ith = 0, direction = TO_THE_RIGHT)
     cs.move(ith = 4, direction = TO_THE_RIGHT)
     print cs.get_coins()
+    print cs.is_final_state(coins = cs.get_coins())
 
 if __name__ == '__main__':
     main()
