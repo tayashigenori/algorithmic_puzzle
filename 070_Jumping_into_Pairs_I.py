@@ -31,23 +31,22 @@ class Coins:
         self._coins[ith] -= 1
         return
     def add_coin(self, ith):
+        if self._coins[ith] == COIN_NULL:
+            raise ValueError, "cannot add. no coin found in %d th position" %(ith)
         if self._coins[ith] >= COIN_MAX:
             raise ValueError, "cannot add. two coins found in %d th position" %(ith)
         self._coins[ith] += 1
         return
 
+    # ２枚見つかったのでさらにその隣（右／左）を返す
     def jump_n_coins(self, ith, direction = TO_THE_RIGHT, n = 2):
         answer = ith
         coins_found = 0
-        while True:
+        # coins_found が n+1 以上になったら break
+        while coins_found <= n:
             answer += direction
             coins_found += self._coins[answer]
-            if coins_found == n:
-                break
-            if coins_found >= n + 1:
-                raise ValueError, "%d + 1 coins found in this direction %d" %(n, direction)
-        # ２枚見つかったのでさらにその隣（右／左）へ移動
-        return answer + direction
+        return answer
 
     def get_coins(self,):
         return self._coins
