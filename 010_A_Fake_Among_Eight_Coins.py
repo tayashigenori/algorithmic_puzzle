@@ -3,18 +3,18 @@
 import sys
 import random
 
-# fake coin is lighter than authentic ones
-FAKE_COIN_WEIGHT = 10
-AUTHENTIC_COIN_WEIGHT = 11
-
 class Coin:
+    # fake coin is lighter than authentic ones
+    FAKE_COIN_WEIGHT = 10
+    AUTHENTIC_COIN_WEIGHT = 11
+
     def __init__(self, i, is_fake = False):
         self._i = i
         self._is_fake = is_fake
         if is_fake == True:
-            self._weight = FAKE_COIN_WEIGHT
+            self._weight = self.FAKE_COIN_WEIGHT
         else:
-            self._weight = AUTHENTIC_COIN_WEIGHT
+            self._weight = self.AUTHENTIC_COIN_WEIGHT
         return
     def get_index(self):
         return self._i
@@ -177,7 +177,7 @@ class FakeCoins:
     def test_answer(self, answer):
         weights = [c.get_weight() for c in self._coins]
         sys.stderr.write("%s\n" %(weights))
-        return weights[answer] == FAKE_COIN_WEIGHT
+        return weights[answer] == Coin.FAKE_COIN_WEIGHT
 
 def main():
     fc = FakeCoins()
