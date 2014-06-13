@@ -3,16 +3,12 @@
 import sys
 import random
 
-import importlib
-A_Fake_Among_Eight_Coins_module = importlib.import_module("010_A_Fake_Among_Eight_Coins")
+from Coin import Coin, Coins
 
-class Coin(A_Fake_Among_Eight_Coins_module.Coin):
+class Coin(Coin):
     # fake coin is heavier than authentic ones
     FAKE_COIN_WEIGHT = 11
     AUTHENTIC_COIN_WEIGHT = 10
-
-class Coins(A_Fake_Among_Eight_Coins_module.Coins):
-    pass
 
 class FakeCoins:
     def __init__(self, n = 10):
