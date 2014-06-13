@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import random
 
 class Coin:
@@ -52,3 +53,24 @@ class Coins(list):
         return not self.is_gt(other_coins)
     def is_lt(self, other_coins): # is less than
         return not self.is_ge(other_coins)
+
+    """
+    helper functions
+    """
+    # split coins into (g1, g2, others)
+    def _split_coins(self, g1 = 3, g2 = 3):
+        sys.stderr.write("### coins_to_split: %s\n### g1: %d\n\n### g2: %d\n"
+                         %(self, g1, g2))
+        coins = random.sample(self, g1 + g2)
+        coins1 = Coins( random.sample(coins, g1) )
+        coins2 = Coins( [c for c in coins if c not in coins1] )
+        others = Coins( [c for c in self if c not in coins] )
+        return (coins1, coins2, others)
+
+    """
+    for debug
+    """
+    def show_weights(self,):
+        weights = [c.get_weight() for c in self]
+        sys.stderr.write("%s\n" %(weights))
+        return

@@ -46,9 +46,9 @@ class FakeCoins:
 
 def main():
     fc = FakeCoins()
-    answer = fc.solve()
-    print answer
-    print fc.test_answer(answer)
+    guess = fc.solve()
+    print guess
+    print fc.test_answer(guess)
 
 if __name__ == '__main__':
     main()
